@@ -24,3 +24,20 @@ export async function addNote(content: string): Promise<Note | null> {
         return null;
     }
 }
+
+export async function getNotes(): Promise<Note[]>{
+    const response = await databases.listDocuments(
+        'notesApp',
+        'notes'
+    )
+
+    console.log(response.documents)
+
+    const notes:Note[] = response.documents.map(doc => ({
+        $id: doc.$id,
+        $createdAt: doc.$createdAt,
+        content: doc.content
+    }));
+
+    return notes;
+}
