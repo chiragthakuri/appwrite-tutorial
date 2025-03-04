@@ -3,7 +3,7 @@ import { ID } from "appwrite";
 
 export async function addNote(content: string): Promise<Note | null> {
     try {
-        console.log("Adding note:", content);
+        //console.log("Adding note:", content);
 
         const response = await databases.createDocument(
             'notesApp',
@@ -12,7 +12,7 @@ export async function addNote(content: string): Promise<Note | null> {
             { content }
         );
 
-        console.log("Note added successfully:", response);
+        //console.log("Note added successfully:", response);
 
         return {
             $id: response.$id,
@@ -31,7 +31,7 @@ export async function getNotes(): Promise<Note[]>{
         'notes'
     )
 
-    console.log(response.documents)
+    //console.log(response.documents)
 
     const notes:Note[] = response.documents.map(doc => ({
         $id: doc.$id,

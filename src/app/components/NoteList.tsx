@@ -10,18 +10,23 @@ export default function NoteList({ initialNotes }: { initialNotes: Note[] }) {
     const channel = 'databases.notesApp.collections.notes.documents'
     const unsubscribe = client.subscribe(channel, (response)=>{
       const eventType = response.events[0];
-      console.log(response.events);
+      console.log(eventType);
 
       const changedNote = response.payload as Note
+      console.log(response.payload);
 
       if(eventType.includes('create')){
         setNotes(prevNotes =>[changedNote, ...prevNotes]);
       }
 
       if(eventType.includes('delete')){
+        console.log("Deleted Note ID:", changedNote.$id);
+        console.log("Deleted Note Content:", changedNote.content);
         setNotes(prevNotes => 
           prevNotes.filter((note) => note.$id !== changedNote.$id )
+          
         )
+        
       }
     })
     return () => unsubscribe();
