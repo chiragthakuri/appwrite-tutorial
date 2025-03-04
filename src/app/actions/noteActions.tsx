@@ -6,8 +6,8 @@ export async function addNote(content: string): Promise<Note | null> {
         console.log("Adding note:", content);
 
         const response = await databases.createDocument(
-            'your_database_id',
-            'your_collection_id',
+            'notesApp',
+            'notes',
             ID.unique(),
             { content }
         );
